@@ -1,0 +1,2 @@
+# hololive-tcg-model
+ 
