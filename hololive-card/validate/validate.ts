@@ -1,4 +1,4 @@
-import { HololiveCard, HololiveCardAttribute, HololiveCardBase, HololiveCardType, HololiveCheerCard, HololiveHolomenCard, HololiveOshiCard, HololiveSupportCard } from "..";
+import { HololiveCard, HololiveCardAttribute, HololiveCardBase, HololiveCardType, HololiveCheerCard, HololiveHolomenCard, HololiveOshiCard, HololiveSupportCard, HololiveSupportType } from "..";
 
 export function isHololiveCard(v: unknown): v is HololiveCard {
     if (typeof v !== 'object' || v === null) {
@@ -38,6 +38,7 @@ function isHolomenCard(card: Partial<HololiveHolomenCard>): boolean {
     return Array.isArray(card.alternativeName) &&
         card.alternativeName.every(name => typeof name === 'string') &&
         card.attribute !== undefined &&
+        Object.values(HololiveCardAttribute).includes(card.attribute) &&
         Array.isArray(card.alternativeAttribute) &&
         card.alternativeAttribute.every(attr => Object.values(HololiveCardAttribute).includes(attr)) &&
         Array.isArray(card.tags) &&
@@ -52,13 +53,19 @@ function isHolomenCard(card: Partial<HololiveHolomenCard>): boolean {
 
 function isOshiCard(card: Partial<HololiveOshiCard>): boolean {
     return card.attribute !== undefined &&
+        Object.values(HololiveCardAttribute).includes(card.attribute) &&
         typeof card.life === 'number' &&
         Array.isArray(card.oshiSkill) &&
         Array.isArray(card.spOshiSkill);
 }
 
+function isValidSupportType(value: any): value is HololiveSupportType {
+    return Object.values(HololiveSupportType).includes(value);
+}
+
 function isSupportCard(card: Partial<HololiveSupportCard>): boolean {
     return card.supportType !== undefined &&
+        isValidSupportType(card.supportType) &&
         typeof card.ability === 'string' &&
         typeof card.isLimited === 'boolean';
 }
