@@ -5,16 +5,16 @@ export function isHololiveCard(v: unknown): v is HololiveCard {
         return false;
     }
 
-    const card = v as Partial<HololiveCardBase>;
+    const card: Partial<HololiveCardBase> = v;
 
     // Check base card properties
     if (typeof card.id !== 'number' ||
         typeof card.name !== 'string' ||
-        !card.type ||
-        !card.rarity ||
-        !Array.isArray(card.source) ||
+        !card.type || !Object.values(HololiveCardType).includes(card.type) ||
+        !card.rarity || typeof card.rarity !== 'string' ||
+        !Array.isArray(card.source) || !card.source.every(src => typeof src === 'string') ||
         typeof card.illustrator !== 'string' ||
-        !card.cardNumber ||
+        !card.cardNumber || typeof card.cardNumber !== 'string' ||
         typeof card.image !== 'string') {
         return false;
     }
@@ -22,13 +22,13 @@ export function isHololiveCard(v: unknown): v is HololiveCard {
     // Check specific card type
     switch (card.type) {
         case HololiveCardType.Holomen:
-            return isHolomenCard(v as Partial<HololiveHolomenCard>);
+            return isHolomenCard(v);
         case HololiveCardType.Oshi:
-            return isOshiCard(v as Partial<HololiveOshiCard>);
+            return isOshiCard(v);
         case HololiveCardType.Support:
-            return isSupportCard(v as Partial<HololiveSupportCard>);
+            return isSupportCard(v);
         case HololiveCardType.Cheer:
-            return isCheerCard(v as Partial<HololiveCheerCard>);
+            return isCheerCard(v);
         default:
             return false;
     }
@@ -42,6 +42,7 @@ function isHolomenCard(card: Partial<HololiveHolomenCard>): boolean {
         Array.isArray(card.alternativeAttribute) &&
         card.alternativeAttribute.every(attr => Object.values(HololiveCardAttribute).includes(attr)) &&
         Array.isArray(card.tags) &&
+        card.tags.every(tag => typeof tag === 'string') &&
         typeof card.hp === 'number' &&
         card.bloomLevel !== undefined &&
         Array.isArray(card.batonTouch) &&
