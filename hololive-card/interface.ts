@@ -6,7 +6,7 @@ export interface HololiveMerchandiseInfo {
     merchandiseType: HololiveMerchandiseType
 }
 
-interface HololiveCardBase {
+export interface HololiveCardBase {
     id: number;
     name: string;
     type: HololiveCardType;
@@ -17,7 +17,7 @@ interface HololiveCardBase {
     image: string;
 }
 
-interface HololiveOshiCard extends HololiveCardBase {
+export interface HololiveOshiCard extends HololiveCardBase {
     type: HololiveCardType.Oshi;
     attribute: HololiveCardAttribute;
     life: number;
@@ -25,7 +25,7 @@ interface HololiveOshiCard extends HololiveCardBase {
     spOshiSkill: HololiveSpOshiSkill[];
 }
 
-interface HololiveOshiSkillBase {
+export interface HololiveOshiSkillBase {
     name: string;
     cost: number;
     type: HololiveOshiSkillType;
@@ -40,7 +40,7 @@ export interface HololiveSpOshiSkill extends HololiveOshiSkillBase {
     type: HololiveOshiSkillType.SpOshi;
 }
 
-interface HololiveHolomenCard extends HololiveCardBase {
+export interface HololiveHolomenCard extends HololiveCardBase {
     type: HololiveCardType.Holomen;
     alternativeName: string[];
     attribute: HololiveCardAttribute;
@@ -71,14 +71,14 @@ export interface HololiveHolomenArts {
     attributeNeed: HololiveCardAttribute[],
 }
 
-interface HololiveSupportCard extends HololiveCardBase {
+export interface HololiveSupportCard extends HololiveCardBase {
     type: HololiveCardType.Support;
     supportType: HololiveSupportType;
     ability: string;
     isLimited: boolean;
 }
 
-interface HololiveCheerCard extends HololiveCardBase {
+export interface HololiveCheerCard extends HololiveCardBase {
     type: HololiveCardType.Cheer;
     attribute: HololiveCardAttribute;
 }
