@@ -59,8 +59,11 @@ function isOshiCard(card: Partial<HololiveOshiCard>): boolean {
         Array.isArray(card.spOshiSkill);
 }
 
-function isValidSupportType(value: any): value is HololiveSupportType {
-    return Object.values(HololiveSupportType).includes(value);
+function isValidSupportType(value: unknown): value is HololiveSupportType {
+    if (typeof value !== 'string') {
+        return false;
+    }
+    return Object.values(HololiveSupportType).includes(value as HololiveSupportType);
 }
 
 function isSupportCard(card: Partial<HololiveSupportCard>): boolean {
