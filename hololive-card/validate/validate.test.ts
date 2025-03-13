@@ -40,6 +40,20 @@ describe('isHololiveCard', () => {
         expect(isHololiveCard(validHolomenCard)).toBe(true);
     });
 
+    test('returns false for objects with correct type but missing type-specific fields', () => {
+        expect(isHololiveCard({
+            id: 1,
+            name: 'Test Card',
+            type: HololiveCardType.Holomen,
+            rarity: 'SSR',
+            source: ['Stream'],
+            illustrator: 'Artist',
+            cardNumber: 'H001',
+            image: 'image.jpg'
+            // Missing all Holomen-specific fields
+        })).toBe(false);
+    });
+
     test('validates oshi card correctly', () => {
         const validOshiCard = {
             id: 2,
@@ -73,6 +87,23 @@ describe('isHololiveCard', () => {
             isLimited: false
         };
         expect(isHololiveCard(validSupportCard)).toBe(true);
+    });
+
+    test('rejects support card with invalid supportType', () => {
+        const invalidSupportCard = {
+            id: 3,
+            name: 'Test Support',
+            type: HololiveCardType.Support,
+            rarity: 'R',
+            source: ['Stream'],
+            illustrator: 'Artist',
+            cardNumber: 'S001',
+            image: 'support.jpg',
+            supportType: 'InvalidType', // Invalid value
+            ability: 'Boost attack',
+            isLimited: false
+        };
+        expect(isHololiveCard(invalidSupportCard)).toBe(false);
     });
 
     test('validates cheer card correctly', () => {
