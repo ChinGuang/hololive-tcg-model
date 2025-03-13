@@ -39,4 +39,54 @@ describe('isHololiveCard', () => {
         };
         expect(isHololiveCard(validHolomenCard)).toBe(true);
     });
+
+    test('validates oshi card correctly', () => {
+        const validOshiCard = {
+            id: 2,
+            name: 'Test Oshi',
+            type: HololiveCardType.Oshi,
+            rarity: 'SR',
+            source: ['Stream'],
+            illustrator: 'Artist',
+            cardNumber: 'O001',
+            image: 'oshi.jpg',
+            attribute: '青',
+            life: 5,
+            oshiSkill: ['Skill1'],
+            spOshiSkill: ['SPSkill1']
+        };
+        expect(isHololiveCard(validOshiCard)).toBe(true);
+    });
+
+    test('validates support card correctly', () => {
+        const validSupportCard = {
+            id: 3,
+            name: 'Test Support',
+            type: HololiveCardType.Support,
+            rarity: 'R',
+            source: ['Stream'],
+            illustrator: 'Artist',
+            cardNumber: 'S001',
+            image: 'support.jpg',
+            supportType: 'イベント',
+            ability: 'Boost attack',
+            isLimited: false
+        };
+        expect(isHololiveCard(validSupportCard)).toBe(true);
+    });
+
+    test('validates cheer card correctly', () => {
+        const validCheerCard = {
+            id: 4,
+            name: 'Test Cheer',
+            type: HololiveCardType.Cheer,
+            rarity: 'R',
+            source: ['Stream'],
+            illustrator: 'Artist',
+            cardNumber: 'C001',
+            image: 'cheer.jpg',
+            attribute: '青'
+        };
+        expect(isHololiveCard(validCheerCard)).toBe(true);
+    });
 });
