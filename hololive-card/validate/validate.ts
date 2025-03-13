@@ -1,4 +1,4 @@
-import { HololiveCard, HololiveCardBase, HololiveCardType, HololiveCheerCard, HololiveHolomenCard, HololiveOshiCard, HololiveSupportCard } from "..";
+import { HololiveCard, HololiveCardAttribute, HololiveCardBase, HololiveCardType, HololiveCheerCard, HololiveHolomenCard, HololiveOshiCard, HololiveSupportCard } from "..";
 
 export function isHololiveCard(v: unknown): v is HololiveCard {
     if (typeof v !== 'object' || v === null) {
@@ -36,8 +36,10 @@ export function isHololiveCard(v: unknown): v is HololiveCard {
 
 function isHolomenCard(card: Partial<HololiveHolomenCard>): boolean {
     return Array.isArray(card.alternativeName) &&
+        card.alternativeName.every(name => typeof name === 'string') &&
         card.attribute !== undefined &&
         Array.isArray(card.alternativeAttribute) &&
+        card.alternativeAttribute.every(attr => Object.values(HololiveCardAttribute).includes(attr)) &&
         Array.isArray(card.tags) &&
         typeof card.hp === 'number' &&
         card.bloomLevel !== undefined &&
@@ -62,10 +64,15 @@ function isSupportCard(card: Partial<HololiveSupportCard>): boolean {
 }
 
 function isCheerCard(card: Partial<HololiveCheerCard>): boolean {
-    return card.attribute !== undefined;
+    return card.attribute !== undefined &&
+        Object.values(HololiveCardAttribute).includes(card.attribute);
 }
 
 
 export const ValidateUtil = {
-    isHololiveCard
+    isHololiveCard,
+    isHolomenCard,
+    isOshiCard,
+    isSupportCard,
+    isCheerCard
 }
