@@ -6,20 +6,18 @@ export function isHololiveCard(v: unknown): v is HololiveCard {
     }
 
     const card: Partial<HololiveCardBase> = v;
-
     // Check base card properties
     if (typeof card.id !== 'number' ||
         typeof card.name !== 'string' ||
         !card.type || !Object.values(HololiveCardType).includes(card.type) ||
         !card.rarity || typeof card.rarity !== 'string' ||
-        !Array.isArray(card.source) || !card.source.every(src => typeof src === 'string') ||
+        !Array.isArray(card.source) ||
         typeof card.illustrator !== 'string' ||
-        !card.cardNumber || typeof card.cardNumber !== 'string' ||
+        !card.cardNumber ||
         typeof card.image !== 'string') {
         return false;
     }
-
-    // Check specific card type
+    //Check specific card type
     switch (card.type) {
         case HololiveCardType.Holomen:
             return isHolomenCard(v);
