@@ -120,4 +120,9 @@ describe('isHololiveCard', () => {
         };
         expect(isHololiveCard(validCheerCard)).toBe(true);
     });
+
+    test('return true for this real card', () => {
+        const card = JSON.parse(`{ "id": 1, "type": "推しホロメン", "rarity": "OSR", "life": 5, "attribute": "白", "source": [{ "name": " スタートデッキ「ときのそら＆AZKi」", "startDate": "2024-09-19T16:00:00.000Z", "merchandiseType": "Decks" }], "name": "ときのそら", "illustrator": "でいりー", "image": "hSD01-001_OSR.png", "cardNumber": { "series": "hSD01", "number": "001" }, "oshiSkill": [{ "name": "リプレイスメント", "cost": 1, "type": "推しスキル", "effectText": "自分のステージのエール１枚を、自分のホロメンに付け替える。" }], "spOshiSkill": [{ "name": "じゃあ敵だね？", "cost": 2, "type": "SP推し スキル", "effectText": "相手のセンターホロメンとバックホロメン１人を交代させる。その後、このターンの間、自分の白センターホロメンのアーツ+50。" }] }`);
+        expect(isHololiveCard(card)).toBe(true);
+    })
 });
