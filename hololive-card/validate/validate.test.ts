@@ -1,5 +1,5 @@
 import { HololiveCardType } from '..';
-import { isHololiveCard } from './validate';
+import { isHololiveCard } from '.';
 
 describe('isHololiveCard', () => {
     test('returns false for null or non-object values', () => {
