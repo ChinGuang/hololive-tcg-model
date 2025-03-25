@@ -1,6 +1,6 @@
 {
   "name": "hololive-tcg-model",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Node.js interface for the Hololive Official Card Game, providing utilities, data structures, and game mechanics for developers.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
